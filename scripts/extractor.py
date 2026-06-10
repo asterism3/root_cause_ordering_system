@@ -1,12 +1,16 @@
 import os
 import requests
 import pandas as pd
-from openai import OpenAI
+from google.generativeai import genai
 from datetime import datetime
 
 # 1. Configuration & API Keys
 SHAREPOINT_URL = "https://farmerfoodshare.sharepoint.com/:x:/s/WholesaleMarket/IQCz_ZPpP4-GRIRC5rxgPjSZAUq0MhGG2RZNJ8uQwtylJY0?download=1" 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") # We will store this securely in GitHub Secrets
+OPENAI_API_KEY = os.environ.get("GEMINI_API_KEY") 
+# Configure Gemini
+genai.configure(api_key=GEMINI_API_KEY)
+# We use 1.5 Flash for high-speed, structured JSON/CSV data extraction
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 # 2. Setup Directories
 RAW_DIR = "../data/raw"
